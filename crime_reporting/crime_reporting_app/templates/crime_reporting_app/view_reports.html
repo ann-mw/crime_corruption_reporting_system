@@ -1,0 +1,22 @@
+{% extends 'crime_reporting_app/base.html' %}
+{% block content %}
+<div class="reports-list">
+    <h1>{{ title }}</h1>
+    
+    {% if reports %}
+        <div class="report-list">
+            {% for report in reports %}
+                <div class="report-item">
+                    <h3>{{ report.title }}</h3>
+                    <p>Date Occurred: {{ report.date_occurred }}</p>
+                    {% if report.reporter %}
+                        <p>Reported by: {{ report.reporter.user.username }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No reports found.</p>
+    {% endif %}
+</div>
+{% endblock %}
