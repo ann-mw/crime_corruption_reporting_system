@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "crime_reporting",
    'crime_reporting_app.apps.CrimeReportingAppConfig',
+   'widget_tweaks',
+
 ]
 
 MIDDLEWARE = [
@@ -59,7 +61,7 @@ ROOT_URLCONF = "crime_reporting.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -67,6 +69,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                
             ],
         },
     },
@@ -77,19 +80,13 @@ WSGI_APPLICATION = "crime_reporting.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-DATABASES = {
+DATABASES ={
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'crime_reporting',
-        'USER': os.getenv('PGUSER'),
-        'PASSWORD': os.getenv('PGPASSWORD'),
-        'HOST': os.getenv('PGHOST'),
-        'PORT': os.getenv('PGPORT'),
-        'OPTIONS': {
-            'sslmode': 'disable',  
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
     }
 }
+
 
 
 # Password validation
@@ -132,3 +129,10 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+# Custom settings
+LOGIN_REDIRECT_URL = 'user_dashboard'
+
+
+LOGIN_URL = 'login'
+
+LOGOUT_REDIRECT_URL = 'home'  # Go to homepage after logout

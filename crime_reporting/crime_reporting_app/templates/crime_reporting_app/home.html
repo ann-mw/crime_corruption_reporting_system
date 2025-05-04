@@ -1,0 +1,23 @@
+{% extends "crime_reporting_app/base.html" %}
+
+{% block content %}
+  <div class="container text-center">
+    <h1>Welcome to the Crime & Corruption Reporting System</h1>
+    <p>Please choose your role to proceed:</p>
+    
+    <!-- Buttons for Admin and User -->
+    <div>
+      <a href="{% url 'login' %}?role=admin" class="btn btn-primary">Admin Login</a>
+      <a href="{% url 'login' %}?role=user" class="btn btn-secondary">User Login</a>
+    </div>
+
+    <hr>
+
+    <!-- Only show Register option for Users -->
+    {% if not user.is_staff %}
+      <div>
+        <a href="{% url 'register' %}" class="btn btn-secondary">User Register</a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -1,16 +1,20 @@
 {% extends 'crime_reporting_app/base.html' %}
+
+{% block title %}My Reports - Crime Reporting System{% endblock %}
+
 {% block content %}
 <div class="reports-list">
-    <h1>{{ title }}</h1>
-    
+    <h1>My Reports</h1>
+
     {% if reports %}
         <div class="report-list">
             {% for report in reports %}
-                <div class="report-item">
-                    <h3>{{ report.title }}</h3>
-                    <p>Date Occurred: {{ report.date_occurred }}</p>
-                    {% if report.reporter %}
-                        <p>Reported by: {{ report.reporter.user.username }}</p>
+                <div class="report-item border p-3 mb-3 rounded shadow-sm">
+                    <h4>{{ report.title }}</h4>
+                    <p><strong>Date Occurred:</strong> {{ report.date_occurred }}</p>
+                    <p><strong>Description:</strong> {{ report.description }}</p>
+                    {% if report.location %}
+                        <p><strong>Location:</strong> {{ report.location }}</p>
                     {% endif %}
                 </div>
             {% endfor %}
@@ -18,5 +22,7 @@
     {% else %}
         <p>No reports found.</p>
     {% endif %}
+
+    <a href="{% url 'user_dashboard' %}" class="btn btn-outline-secondary mt-3">← Back to Dashboard</a>
 </div>
 {% endblock %}

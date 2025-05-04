@@ -1,0 +1,12 @@
+{% extends 'crime_reporting_app/base.html' %}
+{% block content %}
+<h2>Update Profile</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Save Changes</button>
+</form>
+
+<a href="{% url 'user_dashboard' %}" class="btn btn-outline-secondary mt-3">← Back to Dashboard</a>
+{% endblock %}

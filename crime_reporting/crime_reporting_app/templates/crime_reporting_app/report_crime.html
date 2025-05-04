@@ -1,20 +1,56 @@
 {% extends 'crime_reporting_app/base.html' %}
+{% load widget_tweaks %}
+
 {% block content %}
-<div class="report-form">
-    <h1>{{ title }}</h1>
-    
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert {% if message.tags == 'success' %}alert-success{% elif message.tags == 'error' %}alert-danger{% endif %}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-    
-    <form method="post">
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Report a Crime</h2>
+
+    <form method="post" class="shadow p-4 bg-white rounded">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit Report</button>
+
+        <div class="mb-3">
+            <label class="form-label">Report Title</label>
+            {{ form.title|add_class:"form-control" }}
+            <div class="form-text">Brief description of the incident</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Report Details</label>
+            {{ form.description|add_class:"form-control" }}
+            <div class="form-text">Provide as much detail as possible</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Location of Incident</label>
+            {{ form.location|add_class:"form-control" }}
+            <div class="form-text">Exact location where the incident occurred</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Date and Time of Incident</label>
+            {{ form.date_occurred|add_class:"form-control" }}
+            <div class="form-text">When did the incident occur?</div>
+        </div>
+
+        
+        <div class="mb-3">
+            <label class="form-label">Report Type</label>
+            {{ form.status|add_class:"form-select" }}
+            <div class="form-text">Select whether this is a crime or corruption report</div>
+        </div>
+        
+
+        
+        <div class="form-check mb-3">
+            {{ form.report_anonymously|add_class:"form-check-input" }}
+            <label for="{{ form.report_anonymously.id_for_label }}" class="form-check-label">
+                Report anonymously
+            </label>
+        </div>
+        
+
+        <button type="submit" class="btn btn-primary">Submit Report</button>
+        <a href="{% url 'user_dashboard' %}" class="btn btn-outline-secondary ms-2">← Back to Dashboard</a>
     </form>
 </div>
 {% endblock %}
